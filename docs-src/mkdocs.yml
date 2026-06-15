@@ -1,0 +1,14 @@
+site_name: BDD::Behave::Playwright
+site_url: https://gdonald.github.io/BDD-Behave-Playwright/
+repo_url: https://github.com/gdonald/BDD-Behave-Playwright
+nav:
+  - Home: index.md
+theme:
+  name: 'material'
+markdown_extensions:
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.superfences
+  - admonition
+  - toc:
+      permalink: true

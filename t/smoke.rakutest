@@ -1,0 +1,16 @@
+use v6.d;
+use lib 'lib';
+use Test;
+use BDD::Behave::Playwright;
+use BDD::Behave;
+use WWW::Playwright;
+
+plan 4;
+
+is BDD::Behave::Playwright.^name, 'BDD::Behave::Playwright', 'module loads';
+
+ok BDD::Behave::Playwright.dist-version.defined, 'distribution version is defined';
+
+is BDD::Behave.^name, 'BDD::Behave', 'BDD::Behave dependency resolves';
+
+is WWW::Playwright.^name, 'WWW::Playwright', 'WWW::Playwright dependency resolves';
