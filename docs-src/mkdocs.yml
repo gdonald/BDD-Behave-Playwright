@@ -3,8 +3,11 @@ site_url: https://gdonald.github.io/BDD-Behave-Playwright/
 repo_url: https://github.com/gdonald/BDD-Behave-Playwright
 nav:
   - Home: index.md
+  - Installation: installation.md
   - Browser lifecycle: lifecycle.md
   - Matchers: matchers.md
+  - Failure diagnostics: diagnostics.md
+  - End to end: end-to-end.md
 theme:
   name: 'material'
 markdown_extensions:

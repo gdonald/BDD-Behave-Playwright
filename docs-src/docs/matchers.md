@@ -83,3 +83,21 @@ expect(.page).to.have-css('#greeting');
 expect(.page).to.have-css('button', count => 2);
 expect(.page).to.have-css('li', minimum => 3);
 ```
+
+## Page-level
+
+These operate on a `Page`.
+
+- `have-title($expected)` — the document title contains `$expected` (a string
+  substring, or a `Regex` to match).
+- `have-current-path($expected)` — the path of the current URL equals `$expected`
+  (a string), or matches a `Regex`.
+- `have-current-path($expected, url => True)` — match against the full URL rather
+  than just the path.
+
+```raku
+expect(.page).to.have-title('Hello');
+expect(.page).to.have-current-path('/app/users');
+expect(.page).to.have-current-path(rx/'/users/' \d+/);
+expect(.page).to.have-current-path('https://example.test/users', url => True);
+```

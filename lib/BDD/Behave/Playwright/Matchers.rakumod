@@ -37,6 +37,10 @@ sub count-ok(Int $found, Mu $count, Mu $minimum, Mu $maximum --> Bool) {
   $min <= $found <= $max;
 }
 
+sub path-of(Str $url --> Str) {
+  $url ~~ /^ \w+ '://' <-[/]>* ( '/' <-[?#]>* )? / ?? (~($0 // '') || '/') !! $url;
+}
+
 sub css-with-text(Str $selector, Mu $text --> Str) {
   return $selector without $text;
 
@@ -141,3 +145,31 @@ define-matcher 'have-css',
   description => -> $selector, :$count, :$minimum, :$maximum, :$text, *% {
     "have CSS {$selector.raku} matching {css-goal($count, $minimum, $maximum)} node(s)";
   };
+
+define-matcher 'have-title',
+  match => -> $page, $expected, :$timeout = DEFAULT-TIMEOUT {
+    poll-until({
+      my $title = $page.title // '';
+      $expected ~~ Regex ?? ($title ~~ $expected).Bool !! $title.contains($expected);
+    }, $timeout);
+  },
+  failure-message         => -> $page, $expected, *% { "expected the page to have title {$expected.gist}, but title was {($page.title // '').raku}" },
+  failure-message-negated => -> $page, $expected, *% { "expected the page not to have title {$expected.gist}, but title was {($page.title // '').raku}" },
+  description             => -> $expected, *% { "have title {$expected.gist}" };
+
+define-matcher 'have-current-path',
+  match => -> $page, $expected, :$url, :$timeout = DEFAULT-TIMEOUT {
+    poll-until({
+      my $actual = $url ?? $page.url !! path-of($page.url);
+      $expected ~~ Regex ?? ($actual ~~ $expected).Bool !! ($actual eq $expected);
+    }, $timeout);
+  },
+  failure-message => -> $page, $expected, :$url, *% {
+    my $actual = $url ?? $page.url !! path-of($page.url);
+    "expected the page to have current path {$expected.gist}, but path was {$actual.raku}";
+  },
+  failure-message-negated => -> $page, $expected, :$url, *% {
+    my $actual = $url ?? $page.url !! path-of($page.url);
+    "expected the page not to have current path {$expected.gist}, but path was {$actual.raku}";
+  },
+  description => -> $expected, :$url, *% { "have current path {$expected.gist}" };

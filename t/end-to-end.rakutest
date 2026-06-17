@@ -1,0 +1,25 @@
+use v6.d;
+use lib 'lib';
+use Test;
+use BDD::Behave;
+use BDD::Behave::Playwright;
+use WWW::Playwright;
+
+plan 1;
+
+my $playwright = WWW::Playwright.start;
+my $browser    = $playwright.launch;
+my $context    = $browser.new-context;
+my $page       = $context.new-page;
+
+$page.goto(fixture-url('specs/fixtures/form.html'));
+
+$page.locator('#username').fill('Ada');
+$page.locator('#submit').click;
+
+is $page.locator('#welcome').text-content, 'Welcome, Ada',
+   'the form greets the user after submission';
+
+$context.close;
+$browser.close;
+$playwright.stop;

@@ -1,3 +1,4 @@
 .precomp
 .behave-failures
 docs-src/site/
+playwright-artifacts*/

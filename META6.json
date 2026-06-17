@@ -16,7 +16,8 @@
   "provides": {
     "BDD::Behave::Playwright": "lib/BDD/Behave/Playwright.rakumod",
     "BDD::Behave::Playwright::Lifecycle": "lib/BDD/Behave/Playwright/Lifecycle.rakumod",
-    "BDD::Behave::Playwright::Matchers": "lib/BDD/Behave/Playwright/Matchers.rakumod"
+    "BDD::Behave::Playwright::Matchers": "lib/BDD/Behave/Playwright/Matchers.rakumod",
+    "BDD::Behave::Playwright::Diagnostics": "lib/BDD/Behave/Playwright/Diagnostics.rakumod"
   },
   "resources": [],
   "source-url": "https://github.com/gdonald/BDD-Behave-Playwright.git"

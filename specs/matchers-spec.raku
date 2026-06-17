@@ -46,6 +46,18 @@ describe 'Playwright matchers', {
     expect(.page).to.have-css('#greeting');
   }
 
+  it 'have-title passes when the document title matches', -> $_ {
+    expect(.page).to.have-title('Hello');
+  }
+
+  it 'have-current-path matches the path of the current URL', -> $_ {
+    expect(.page).to.have-current-path('specs/fixtures/hello.html'.IO.absolute);
+  }
+
+  it 'have-current-path matches the full URL with the url option', -> $_ {
+    expect(.page).to.have-current-path(fixture-url('specs/fixtures/hello.html'), url => True);
+  }
+
   it 'awaits an element revealed asynchronously', -> $_ {
     .page.locator('#go-async').click;
     expect(.page.locator('#async-status')).to.be-visible;

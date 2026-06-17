@@ -1,0 +1,50 @@
+use v6.d;
+use lib 'lib';
+use Test;
+use BDD::Behave::Playwright;
+use BDD::Behave::Playwright::Diagnostics;
+use WWW::Playwright;
+
+plan 5;
+
+sub png-count(Str $dir --> Int) {
+  $dir.IO.d ?? $dir.IO.dir(test => /'.png' $/).elems !! 0;
+}
+
+my $dir = 'playwright-artifacts-t';
+
+my $playwright = WWW::Playwright.start;
+my $browser    = $playwright.launch;
+my $context    = $browser.new-context;
+my $page       = $context.new-page;
+
+$page.goto(fixture-url('specs/fixtures/hello.html'));
+
+my $stem = write-failure-artifacts($page, $context, :$dir);
+ok "$stem.png".IO.s > 0, 'writes a non-empty screenshot to the artifacts dir';
+
+$context.start-tracing;
+my $trace-stem = write-failure-artifacts($page, $context, :$dir, :trace);
+ok "$trace-stem.zip".IO.s > 0, 'writes a non-empty trace when tracing is enabled';
+
+my $before = png-count($dir);
+on-example-end($page, $context, -1, :$dir);
+ok png-count($dir) > $before, 'captures a screenshot when the example recorded a failure';
+
+my $steady = png-count($dir);
+on-example-end($page, $context, failure-count(), :$dir);
+is png-count($dir), $steady, 'writes nothing when the example recorded no failure';
+
+my $closed = $context.new-page;
+$closed.close;
+lives-ok { write-failure-artifacts($closed, $context, :$dir) },
+   'does not propagate an error when the page is unusable';
+
+$context.close;
+$browser.close;
+$playwright.stop;
+
+if $dir.IO.d {
+  .unlink for $dir.IO.dir;
+  $dir.IO.rmdir;
+}
