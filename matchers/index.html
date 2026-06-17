@@ -8,26 +8,26 @@
       
       
       
-        <link rel="canonical" href="https://gdonald.github.io/BDD-Behave-Playwright/">
+        <link rel="canonical" href="https://gdonald.github.io/BDD-Behave-Playwright/matchers/">
       
       
+        <link rel="prev" href="../lifecycle/">
       
-        <link rel="next" href="lifecycle/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>BDD::Behave::Playwright</title>
+        <title>Matchers - BDD::Behave::Playwright</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
       
 
@@ -46,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#bddbehaveplaywright" class="md-skip">
+        <a href="#matchers" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="BDD::Behave::Playwright" class="md-header__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
+    <a href=".." title="BDD::Behave::Playwright" class="md-header__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Matchers
             
           </span>
         </div>
@@ -190,7 +190,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="BDD::Behave::Playwright" class="md-nav__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
+    <a href=".." title="BDD::Behave::Playwright" class="md-nav__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -217,6 +217,60 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Browser lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -236,7 +290,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    Matchers
   
 
     
@@ -247,14 +301,14 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="." class="md-nav__link md-nav__link--active">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
+    Matchers
   
 
     
@@ -280,10 +334,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dependency-split" class="md-nav__link">
+  <a href="#auto-waiting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependency split
+        Auto-waiting
       
     </span>
   </a>
@@ -291,10 +345,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-glue-adds" class="md-nav__link">
+  <a href="#presence-and-state" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the glue adds
+        Presence and state
       
     </span>
   </a>
@@ -302,10 +356,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#content" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selector-existence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selector existence
       
     </span>
   </a>
@@ -316,60 +381,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="lifecycle/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Browser lifecycle
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="matchers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Matchers
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -401,10 +412,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dependency-split" class="md-nav__link">
+  <a href="#auto-waiting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependency split
+        Auto-waiting
       
     </span>
   </a>
@@ -412,10 +423,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-glue-adds" class="md-nav__link">
+  <a href="#presence-and-state" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the glue adds
+        Presence and state
       
     </span>
   </a>
@@ -423,10 +434,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#content" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selector-existence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selector existence
       
     </span>
   </a>
@@ -453,41 +475,78 @@
   
 
 
-<h1 id="bddbehaveplaywright">BDD::Behave::Playwright<a class="headerlink" href="#bddbehaveplaywright" title="Permanent link">&para;</a></h1>
-<p>Thin glue between <a href="https://github.com/gdonald/BDD-Behave">BDD::Behave</a> and
-<a href="https://github.com/gdonald/WWW-Playwright">WWW::Playwright</a>. It adds browser
-lifecycle hooks and Playwright-aware matchers to behave examples.</p>
-<p>It contains no browser driving of its own. All of that lives in WWW::Playwright.
-This distribution is the layer that wires a Playwright page into a behave
-<code>describe</code>/<code>it</code> flow and lets you write expectations against it.</p>
-<h2 id="dependency-split">Dependency split<a class="headerlink" href="#dependency-split" title="Permanent link">&para;</a></h2>
+<h1 id="matchers">Matchers<a class="headerlink" href="#matchers" title="Permanent link">&para;</a></h1>
+<p>The matchers assert on WWW::Playwright <code>Locator</code> and <code>Page</code> objects. Apply them
+method-style on an expectation:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>)).<span class="nb">to</span>.<span class="n">be-visible</span>;
+<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>)).<span class="nb">to</span>.<span class="n">have-value</span>(<span class="s">&#39;Ada&#39;</span>);
+</code></pre></div></td></tr></table></div>
+<p>Every matcher negates with <code>.not</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#status&#39;</span>)).<span class="nb">not</span>.<span class="nb">to</span>.<span class="n">be-visible</span>;
+</code></pre></div></td></tr></table></div>
+<h2 id="auto-waiting">Auto-waiting<a class="headerlink" href="#auto-waiting" title="Permanent link">&para;</a></h2>
+<p>Matchers poll until the condition holds or a timeout elapses, so an element that
+renders shortly after an action still passes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#go-async&#39;</span>).<span class="n">click</span>;
+<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#async-status&#39;</span>)).<span class="nb">to</span>.<span class="n">be-visible</span>;
+</code></pre></div></td></tr></table></div>
+<p>The default timeout is 4 seconds. Override it per assertion with <code>timeout</code>
+(seconds), which is useful to fail fast in negative cases:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#status&#39;</span>)).<span class="nb">not</span>.<span class="nb">to</span>.<span class="n">be-visible</span>(<span class="n">timeout</span> =&gt; <span class="mf">0.3</span>);
+</code></pre></div></td></tr></table></div>
+<h2 id="presence-and-state">Presence and state<a class="headerlink" href="#presence-and-state" title="Permanent link">&para;</a></h2>
+<p>These operate on a <code>Locator</code>.</p>
+<ul>
+<li><code>be-visible</code> — the element is visible.</li>
+<li><code>be-hidden</code> — the element is present but not visible.</li>
+<li><code>be-enabled</code> — the element is enabled.</li>
+<li><code>be-disabled</code> — the element is disabled.</li>
+<li><code>be-checked</code> — the checkbox or radio is checked.</li>
+</ul>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>BDD::Behave::Playwright  -&gt;  BDD::Behave
-        |
-        +-----------------&gt;  WWW::Playwright
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>)).<span class="nb">to</span>.<span class="n">be-visible</span>;
+<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#locked&#39;</span>)).<span class="nb">to</span>.<span class="n">be-disabled</span>;
+<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#agree&#39;</span>)).<span class="nb">to</span>.<span class="n">be-checked</span>;
 </code></pre></div></td></tr></table></div>
+<h2 id="content">Content<a class="headerlink" href="#content" title="Permanent link">&para;</a></h2>
+<p>These operate on a <code>Locator</code>.</p>
 <ul>
-<li><code>BDD::Behave</code> provides the <code>describe</code>/<code>context</code>/<code>it</code>/<code>expect</code> DSL and the
-  matcher protocol.</li>
-<li><code>WWW::Playwright</code> drives a real browser through a long-lived Node sidecar.</li>
-<li><code>BDD::Behave::Playwright</code> (this distribution) connects the two: it manages the
-  browser lifecycle around each example and exposes matchers that assert on
-  Playwright <code>Page</code> and <code>Locator</code> objects.</li>
+<li><code>have-text($expected)</code> — the element's text contains <code>$expected</code> (a string
+  substring, or a <code>Regex</code> to match).</li>
+<li><code>have-value($expected)</code> — the form control's value equals <code>$expected</code> (a
+  string), or matches a <code>Regex</code>.</li>
+<li><code>have-attribute($name)</code> — the attribute is present.</li>
+<li><code>have-attribute($name, $expected)</code> — the attribute equals <code>$expected</code>, or
+  matches a <code>Regex</code>.</li>
+<li><code>have-count($n)</code> — the locator resolves to exactly <code>$n</code> elements.</li>
 </ul>
-<h2 id="what-the-glue-adds">What the glue adds<a class="headerlink" href="#what-the-glue-adds" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Lifecycle hooks that launch a browser context and page for each example and
-  close them afterward, so examples stay isolated.</li>
-<li>The current <code>page</code> exposed to examples as a named subject.</li>
-<li>Matchers that reuse Playwright's auto-waiting instead of re-implementing waits.</li>
-<li>Failure diagnostics that capture a screenshot when an example fails.</li>
-</ul>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>zef install BDD::Behave::Playwright
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>)).<span class="nb">to</span>.<span class="n">have-text</span>(<span class="s">&#39;Hello, world&#39;</span>);
+<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>)).<span class="nb">to</span>.<span class="n">have-value</span>(<span class="s">&#39;Ada&#39;</span>);
+<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>)).<span class="nb">to</span>.<span class="n">have-attribute</span>(<span class="s">&#39;type&#39;</span>, <span class="s">&#39;text&#39;</span>);
+<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;button&#39;</span>)).<span class="nb">to</span>.<span class="n">have-count</span>(<span class="mi">2</span>);
 </code></pre></div></td></tr></table></div>
-<p>The browser itself is provided by WWW::Playwright, which needs Node and a
-Playwright Chromium binary available at runtime.</p>
+<h2 id="selector-existence">Selector existence<a class="headerlink" href="#selector-existence" title="Permanent link">&para;</a></h2>
+<p><code>have-css</code> operates on a <code>Page</code> or a scoping <code>Locator</code>. It asserts the subject
+contains nodes matching a CSS selector, mirroring Capybara's <code>have_css</code>.</p>
+<ul>
+<li><code>have-css($selector)</code> — at least one match.</li>
+<li><code>have-css($selector, count =&gt; $n)</code> — exactly <code>$n</code> matches.</li>
+<li><code>have-css($selector, minimum =&gt; $n)</code> — at least <code>$n</code> matches.</li>
+<li><code>have-css($selector, maximum =&gt; $n)</code> — at most <code>$n</code> matches.</li>
+<li><code>have-css($selector, text =&gt; $string)</code> — restrict to nodes containing <code>$string</code>.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-css</span>(<span class="s">&#39;#greeting&#39;</span>);
+<span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-css</span>(<span class="s">&#39;button&#39;</span>, <span class="nb">count</span> =&gt; <span class="mi">2</span>);
+<span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-css</span>(<span class="s">&#39;li&#39;</span>, <span class="n">minimum</span> =&gt; <span class="mi">3</span>);
+</code></pre></div></td></tr></table></div>
 
 
 
@@ -537,10 +596,10 @@ Playwright Chromium binary available at runtime.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
