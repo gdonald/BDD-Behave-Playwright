@@ -9,8 +9,16 @@
 
   <input id="name" type="text" value="">
 
+  <input id="locked" type="text" disabled>
+
+  <input id="agree" type="checkbox" checked>
+
   <button id="go" type="button" onclick="document.getElementById('status').hidden = false;">Go</button>
 
   <p id="status" hidden>Done</p>
+
+  <button id="go-async" type="button" onclick="setTimeout(function () { document.getElementById('async-status').hidden = false; }, 150);">Go async</button>
+
+  <p id="async-status" hidden>Async done</p>
 </body>
 </html>

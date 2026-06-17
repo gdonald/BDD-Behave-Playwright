@@ -14,7 +14,9 @@
   "build-depends": [],
   "test-depends": ["Test", "Test::META", "JSON::Fast", "BDD::Behave:auth<zef:gdonald>"],
   "provides": {
-    "BDD::Behave::Playwright": "lib/BDD/Behave/Playwright.rakumod"
+    "BDD::Behave::Playwright": "lib/BDD/Behave/Playwright.rakumod",
+    "BDD::Behave::Playwright::Lifecycle": "lib/BDD/Behave/Playwright/Lifecycle.rakumod",
+    "BDD::Behave::Playwright::Matchers": "lib/BDD/Behave/Playwright/Matchers.rakumod"
   },
   "resources": [],
   "source-url": "https://github.com/gdonald/BDD-Behave-Playwright.git"

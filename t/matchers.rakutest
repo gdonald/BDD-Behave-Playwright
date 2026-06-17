@@ -1,0 +1,63 @@
+use v6.d;
+use lib 'lib';
+use Test;
+use BDD::Behave;
+use BDD::Behave::Playwright;
+use WWW::Playwright;
+
+plan 12;
+
+my $playwright = WWW::Playwright.start;
+my $browser    = $playwright.launch;
+my $context    = $browser.new-context;
+my $page       = $context.new-page;
+
+$page.goto(fixture-url('specs/fixtures/hello.html'));
+
+sub passes(&matcher --> Bool) {
+  my $ok = True;
+  try { matcher(); CATCH { default { $ok = False } } }
+  $ok;
+}
+
+ok passes({ expect($page.locator('#greeting')).to.be-visible }),
+   'be-visible passes for a visible element';
+
+ok passes({ expect($page.locator('#status')).to.be-hidden }),
+   'be-hidden passes for a hidden element';
+
+ok passes({ expect($page.locator('#name')).to.be-enabled }),
+   'be-enabled passes for an enabled input';
+
+ok passes({ expect($page.locator('#locked')).to.be-disabled }),
+   'be-disabled passes for a disabled input';
+
+ok passes({ expect($page.locator('#agree')).to.be-checked }),
+   'be-checked passes for a checked checkbox';
+
+ok passes({ expect($page.locator('#greeting')).to.have-text('Hello, world') }),
+   'have-text passes when the text matches';
+
+$page.locator('#name').fill('Ada');
+ok passes({ expect($page.locator('#name')).to.have-value('Ada') }),
+   'have-value passes after filling an input';
+
+ok passes({ expect($page.locator('#name')).to.have-attribute('type', 'text') }),
+   'have-attribute passes when the attribute matches';
+
+ok passes({ expect($page.locator('button')).to.have-count(2) }),
+   'have-count passes for the expected number of matches';
+
+ok passes({ expect($page).to.have-css('#greeting') }),
+   'have-css passes when the page has the selector';
+
+$page.locator('#go-async').click;
+ok passes({ expect($page.locator('#async-status')).to.be-visible }),
+   'awaits an element revealed asynchronously';
+
+ok passes({ expect($page.locator('#status')).not.to.be-visible(timeout => 0.3) }),
+   'be-visible negates for a hidden element';
+
+$context.close;
+$browser.close;
+$playwright.stop;
