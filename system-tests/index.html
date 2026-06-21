@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://gdonald.github.io/BDD-Behave-Playwright/matchers/">
+        <link rel="canonical" href="https://gdonald.github.io/BDD-Behave-Playwright/system-tests/">
       
       
-        <link rel="prev" href="../system-tests/">
+        <link rel="prev" href="../lifecycle/">
       
       
-        <link rel="next" href="../diagnostics/">
+        <link rel="next" href="../matchers/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Matchers - BDD::Behave::Playwright</title>
+        <title>System tests - BDD::Behave::Playwright</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#matchers" class="md-skip">
+        <a href="#system-tests-without-playwright-page" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Matchers
+              System tests
             
           </span>
         </div>
@@ -300,33 +300,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../system-tests/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    System tests
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -346,7 +319,7 @@
   <span class="md-ellipsis">
     
   
-    Matchers
+    System tests
   
 
     
@@ -364,7 +337,7 @@
   <span class="md-ellipsis">
     
   
-    Matchers
+    System tests
   
 
     
@@ -390,10 +363,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#auto-waiting" class="md-nav__link">
+  <a href="#register-the-lifecycle-once" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Auto-waiting
+        Register the lifecycle once
       
     </span>
   </a>
@@ -401,10 +374,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#presence-and-state" class="md-nav__link">
+  <a href="#tag-the-group" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Presence and state
+        Tag the group
       
     </span>
   </a>
@@ -412,10 +385,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#content" class="md-nav__link">
+  <a href="#choosing-the-tag" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Content
+        Choosing the tag
       
     </span>
   </a>
@@ -423,10 +396,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#selector-existence" class="md-nav__link">
+  <a href="#artifacts-and-tracing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Selector existence
+        Artifacts and tracing
       
     </span>
   </a>
@@ -434,10 +407,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#page-level" class="md-nav__link">
+  <a href="#when-to-use-which" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Page-level
+        When to use which
       
     </span>
   </a>
@@ -448,6 +421,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matchers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Matchers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -533,10 +533,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#auto-waiting" class="md-nav__link">
+  <a href="#register-the-lifecycle-once" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Auto-waiting
+        Register the lifecycle once
       
     </span>
   </a>
@@ -544,10 +544,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#presence-and-state" class="md-nav__link">
+  <a href="#tag-the-group" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Presence and state
+        Tag the group
       
     </span>
   </a>
@@ -555,10 +555,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#content" class="md-nav__link">
+  <a href="#choosing-the-tag" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Content
+        Choosing the tag
       
     </span>
   </a>
@@ -566,10 +566,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#selector-existence" class="md-nav__link">
+  <a href="#artifacts-and-tracing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Selector existence
+        Artifacts and tracing
       
     </span>
   </a>
@@ -577,10 +577,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#page-level" class="md-nav__link">
+  <a href="#when-to-use-which" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Page-level
+        When to use which
       
     </span>
   </a>
@@ -607,96 +607,84 @@
   
 
 
-<h1 id="matchers">Matchers<a class="headerlink" href="#matchers" title="Permanent link">&para;</a></h1>
-<p>The matchers assert on WWW::Playwright <code>Locator</code> and <code>Page</code> objects. Apply them
-method-style on an expectation:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>)).<span class="nb">to</span>.<span class="n">be-visible</span>;
-<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>)).<span class="nb">to</span>.<span class="n">have-value</span>(<span class="s">&#39;Ada&#39;</span>);
-</code></pre></div></td></tr></table></div>
-<p>Every matcher negates with <code>.not</code>:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#status&#39;</span>)).<span class="nb">not</span>.<span class="nb">to</span>.<span class="n">be-visible</span>;
-</code></pre></div></td></tr></table></div>
-<h2 id="auto-waiting">Auto-waiting<a class="headerlink" href="#auto-waiting" title="Permanent link">&para;</a></h2>
-<p>Matchers poll until the condition holds or a timeout elapses, so an element that
-renders shortly after an action still passes:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#go-async&#39;</span>).<span class="n">click</span>;
-<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#async-status&#39;</span>)).<span class="nb">to</span>.<span class="n">be-visible</span>;
-</code></pre></div></td></tr></table></div>
-<p>The default timeout is 4 seconds. Override it per assertion with <code>timeout</code>
-(seconds), which is useful to fail fast in negative cases:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#status&#39;</span>)).<span class="nb">not</span>.<span class="nb">to</span>.<span class="n">be-visible</span>(<span class="n">timeout</span> =&gt; <span class="mf">0.3</span>);
-</code></pre></div></td></tr></table></div>
-<h2 id="presence-and-state">Presence and state<a class="headerlink" href="#presence-and-state" title="Permanent link">&para;</a></h2>
-<p>These operate on a <code>Locator</code>.</p>
-<ul>
-<li><code>be-visible</code> — the element is visible.</li>
-<li><code>be-hidden</code> — the element is present but not visible.</li>
-<li><code>be-enabled</code> — the element is enabled.</li>
-<li><code>be-disabled</code> — the element is disabled.</li>
-<li><code>be-checked</code> — the checkbox or radio is checked.</li>
-</ul>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>)).<span class="nb">to</span>.<span class="n">be-visible</span>;
-<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#locked&#39;</span>)).<span class="nb">to</span>.<span class="n">be-disabled</span>;
-<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#agree&#39;</span>)).<span class="nb">to</span>.<span class="n">be-checked</span>;
-</code></pre></div></td></tr></table></div>
-<h2 id="content">Content<a class="headerlink" href="#content" title="Permanent link">&para;</a></h2>
-<p>These operate on a <code>Locator</code>.</p>
-<ul>
-<li><code>have-text($expected)</code> — the element's text contains <code>$expected</code> (a string
-  substring, or a <code>Regex</code> to match).</li>
-<li><code>have-value($expected)</code> — the form control's value equals <code>$expected</code> (a
-  string), or matches a <code>Regex</code>.</li>
-<li><code>have-attribute($name)</code> — the attribute is present.</li>
-<li><code>have-attribute($name, $expected)</code> — the attribute equals <code>$expected</code>, or
-  matches a <code>Regex</code>.</li>
-<li><code>have-count($n)</code> — the locator resolves to exactly <code>$n</code> elements.</li>
-</ul>
+<h1 id="system-tests-without-playwright-page">System tests without <code>playwright-page</code><a class="headerlink" href="#system-tests-without-playwright-page" title="Permanent link">&para;</a></h1>
+<p><code>playwright-page</code> wires the browser into one <code>describe</code> block at a time. When most
+of a suite's browser specs share the same setup, you can register the lifecycle
+once in a <code>.behave</code> config file and tag the relevant groups instead of calling
+<code>playwright-page</code> in each one.</p>
+<h2 id="register-the-lifecycle-once">Register the lifecycle once<a class="headerlink" href="#register-the-lifecycle-once" title="Permanent link">&para;</a></h2>
+<p><code>BDD::Behave::Playwright.install($config)</code> registers the browser lifecycle as
+config-level hooks and exposes the current page as a helper. Put it in your
+project's <code>.behave</code> file:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>)).<span class="nb">to</span>.<span class="n">have-text</span>(<span class="s">&#39;Hello, world&#39;</span>);
-<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>)).<span class="nb">to</span>.<span class="n">have-value</span>(<span class="s">&#39;Ada&#39;</span>);
-<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>)).<span class="nb">to</span>.<span class="n">have-attribute</span>(<span class="s">&#39;type&#39;</span>, <span class="s">&#39;text&#39;</span>);
-<span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;button&#39;</span>)).<span class="nb">to</span>.<span class="n">have-count</span>(<span class="mi">2</span>);
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">use</span> <span class="n">BDD::Behave::Playwright</span>;
+
+<span class="n">configure-behave</span> -&gt; <span class="nv">$config</span> {
+  <span class="n">BDD::Behave::Playwright</span>.<span class="n">install</span>(<span class="nv">$config</span>);
+}
 </code></pre></div></td></tr></table></div>
-<h2 id="selector-existence">Selector existence<a class="headerlink" href="#selector-existence" title="Permanent link">&para;</a></h2>
-<p><code>have-css</code> operates on a <code>Page</code> or a scoping <code>Locator</code>. It asserts the subject
-contains nodes matching a CSS selector, mirroring Capybara's <code>have_css</code>.</p>
-<ul>
-<li><code>have-css($selector)</code> — at least one match.</li>
-<li><code>have-css($selector, count =&gt; $n)</code> — exactly <code>$n</code> matches.</li>
-<li><code>have-css($selector, minimum =&gt; $n)</code> — at least <code>$n</code> matches.</li>
-<li><code>have-css($selector, maximum =&gt; $n)</code> — at most <code>$n</code> matches.</li>
-<li><code>have-css($selector, text =&gt; $string)</code> — restrict to nodes containing <code>$string</code>.</li>
-</ul>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-css</span>(<span class="s">&#39;#greeting&#39;</span>);
-<span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-css</span>(<span class="s">&#39;button&#39;</span>, <span class="nb">count</span> =&gt; <span class="mi">2</span>);
-<span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-css</span>(<span class="s">&#39;li&#39;</span>, <span class="n">minimum</span> =&gt; <span class="mi">3</span>);
-</code></pre></div></td></tr></table></div>
-<h2 id="page-level">Page-level<a class="headerlink" href="#page-level" title="Permanent link">&para;</a></h2>
-<p>These operate on a <code>Page</code>.</p>
-<ul>
-<li><code>have-title($expected)</code> — the document title contains <code>$expected</code> (a string
-  substring, or a <code>Regex</code> to match).</li>
-<li><code>have-current-path($expected)</code> — the path of the current URL equals <code>$expected</code>
-  (a string), or matches a <code>Regex</code>.</li>
-<li><code>have-current-path($expected, url =&gt; True)</code> — match against the full URL rather
-  than just the path.</li>
-</ul>
+<p>By default the lifecycle applies to every group tagged <code>type =&gt; system</code>. The
+browser launches in a <code>before-all</code>, a fresh context and page open in a
+<code>before-each</code>, and they tear down (writing failure artifacts when an example
+failed) in <code>after-each</code> / <code>after-all</code>.</p>
+<h2 id="tag-the-group">Tag the group<a class="headerlink" href="#tag-the-group" title="Permanent link">&para;</a></h2>
+<p>Mark a <code>describe</code> with <code>:type&lt;system&gt;</code>. Every example inside it gets a live
+browser page, reachable as the <code>page</code> term:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-title</span>(<span class="s">&#39;Hello&#39;</span>);
-<span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-current-path</span>(<span class="s">&#39;/app/users&#39;</span>);
-<span class="n">expect</span>(.<span class="n">page</span>).<span class="nb">to</span>.<span class="n">have-current-path</span>(<span class="sr">rx/&#39;/</span><span class="n">users</span>/<span class="s">&#39; \d+/);</span>
-<span class="s">expect(.page).to.have-current-path(&#39;</span><span class="n">https:</span>//<span class="n">example</span>.<span class="n">test</span><span class="o">/</span><span class="n">users&#39;</span>, <span class="n">url</span> =&gt; <span class="nb">True</span>);
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">use</span> <span class="n">BDD::Behave</span>;
+<span class="k">use</span> <span class="n">BDD::Behave::Playwright</span>;
+
+<span class="n">describe</span> <span class="s">&#39;the greeting page&#39;</span>, :<span class="n">type</span><span class="s">&lt;system&gt;</span>, {
+  <span class="n">it</span> <span class="s">&#39;shows the greeting&#39;</span>, {
+    <span class="n">page</span>.<span class="n">goto</span>(<span class="n">fixture-url</span>(<span class="s">&#39;specs/fixtures/hello.html&#39;</span>));
+    <span class="n">expect</span>(<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>)).<span class="nb">to</span>.<span class="n">have-text</span>(<span class="s">&#39;Hello, world&#39;</span>);
+  }
+}
 </code></pre></div></td></tr></table></div>
+<p><code>use BDD::Behave::Playwright</code> brings the <code>page</code> term (and <code>fixture-url</code>) into the
+spec. The same page is also reachable as <code>.page</code> on the topic in a <code>-&gt; $_ { ... }</code>
+block, which needs no import. Unlike <code>playwright-page</code>, the config path does not
+navigate for you, so call <code>page.goto(...)</code> (with <code>fixture-url</code> for local files, or
+a real URL) at the start of the example.</p>
+<h2 id="choosing-the-tag">Choosing the tag<a class="headerlink" href="#choosing-the-tag" title="Permanent link">&para;</a></h2>
+<p>Pass <code>:type</code> to use a different tag, for example to separate full-page system
+tests from feature tests:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">configure-behave</span> -&gt; <span class="nv">$config</span> {
+  <span class="n">BDD::Behave::Playwright</span>.<span class="n">install</span>(<span class="nv">$config</span>, :<span class="n">type</span><span class="s">&lt;feature&gt;</span>);
+}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">describe</span> <span class="s">&#39;checkout&#39;</span>, :<span class="n">type</span><span class="s">&lt;feature&gt;</span>, {
+  <span class="n">it</span> <span class="s">&#39;reaches the confirmation page&#39;</span>, { ... }
+}
+</code></pre></div></td></tr></table></div>
+<h2 id="artifacts-and-tracing">Artifacts and tracing<a class="headerlink" href="#artifacts-and-tracing" title="Permanent link">&para;</a></h2>
+<p><code>install</code> reads the same settings as <code>playwright-page</code>: pass <code>:artifacts</code> to set
+the output directory (or use the <code>PLAYWRIGHT_ARTIFACTS</code> environment variable), and
+<code>:trace</code> to record a Playwright trace (or set <code>PLAYWRIGHT_TRACE</code>). Screenshots and
+traces are written only for examples that fail.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">BDD::Behave::Playwright</span>.<span class="n">install</span>(<span class="nv">$config</span>, :<span class="n">artifacts</span><span class="s">&lt;tmp/playwright&gt;</span>, :<span class="n">trace</span>);
+</code></pre></div></td></tr></table></div>
+<h2 id="when-to-use-which">When to use which<a class="headerlink" href="#when-to-use-which" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>playwright-page</code> suits a handful of browser specs, or groups that each load a
+  different fixture, where keeping the setup beside the examples reads clearly.</li>
+<li><code>install</code> plus <code>:type&lt;system&gt;</code> suits a suite with many browser specs that share
+  one setup, keeping the lifecycle in one place.</li>
+</ul>
 
 
 

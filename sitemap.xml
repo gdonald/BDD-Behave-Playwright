@@ -2,14 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://gdonald.github.io/BDD-Behave-Playwright/</loc>
-         <lastmod>2026-06-17</lastmod>
+         <lastmod>2026-06-21</lastmod>
+    </url>
+    <url>
+         <loc>https://gdonald.github.io/BDD-Behave-Playwright/diagnostics/</loc>
+         <lastmod>2026-06-21</lastmod>
+    </url>
+    <url>
+         <loc>https://gdonald.github.io/BDD-Behave-Playwright/end-to-end/</loc>
+         <lastmod>2026-06-21</lastmod>
+    </url>
+    <url>
+         <loc>https://gdonald.github.io/BDD-Behave-Playwright/installation/</loc>
+         <lastmod>2026-06-21</lastmod>
     </url>
     <url>
          <loc>https://gdonald.github.io/BDD-Behave-Playwright/lifecycle/</loc>
-         <lastmod>2026-06-17</lastmod>
+         <lastmod>2026-06-21</lastmod>
     </url>
     <url>
          <loc>https://gdonald.github.io/BDD-Behave-Playwright/matchers/</loc>
-         <lastmod>2026-06-17</lastmod>
+         <lastmod>2026-06-21</lastmod>
+    </url>
+    <url>
+         <loc>https://gdonald.github.io/BDD-Behave-Playwright/system-tests/</loc>
+         <lastmod>2026-06-21</lastmod>
     </url>
 </urlset>

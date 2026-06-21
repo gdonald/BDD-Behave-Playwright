@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://gdonald.github.io/BDD-Behave-Playwright/lifecycle/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../installation/">
       
       
-        <link rel="next" href="../matchers/">
+        <link rel="next" href="../system-tests/">
       
       
         
@@ -246,6 +246,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -320,10 +347,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-page-subject" class="md-nav__link">
+  <a href="#the-page-term" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The page subject
+        The page term
       
     </span>
   </a>
@@ -367,6 +394,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../system-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../matchers/" class="md-nav__link">
         
   
@@ -375,6 +429,60 @@
     
   
     Matchers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Failure diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../end-to-end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End to end
   
 
     
@@ -425,10 +533,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-page-subject" class="md-nav__link">
+  <a href="#the-page-term" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The page subject
+        The page term
       
     </span>
   </a>
@@ -498,20 +606,28 @@ closes them afterward so examples stay isolated.</p>
 <span class="n">describe</span> <span class="s">&#39;the greeting page&#39;</span>, {
   <span class="n">playwright-page</span>(<span class="n">fixture</span> =&gt; <span class="s">&#39;specs/fixtures/hello.html&#39;</span>);
 
-  <span class="n">it</span> <span class="s">&#39;shows the greeting&#39;</span>, -&gt; <span class="nv">$_</span> {
-    <span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>).<span class="n">text-content</span>).<span class="nb">to</span>.<span class="o">eq</span>(<span class="s">&#39;Hello, world&#39;</span>);
+  <span class="n">it</span> <span class="s">&#39;shows the greeting&#39;</span>, {
+    <span class="n">expect</span>(<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#greeting&#39;</span>).<span class="n">text-content</span>).<span class="nb">to</span>.<span class="o">eq</span>(<span class="s">&#39;Hello, world&#39;</span>);
   }
 }
 </code></pre></div></td></tr></table></div>
-<h2 id="the-page-subject">The <code>page</code> subject<a class="headerlink" href="#the-page-subject" title="Permanent link">&para;</a></h2>
-<p><code>playwright-page</code> exposes the current page as a <code>let</code> named <code>page</code>. Read it through
-the example's topic parameter, as <code>.page</code>:</p>
+<h2 id="the-page-term">The <code>page</code> term<a class="headerlink" href="#the-page-term" title="Permanent link">&para;</a></h2>
+<p><code>use BDD::Behave::Playwright</code> brings a <code>page</code> term into scope that returns the
+current page:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">it</span> <span class="s">&#39;fills a field&#39;</span>, -&gt; <span class="nv">$_</span> {
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">it</span> <span class="s">&#39;fills a field&#39;</span>, {
+  <span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>).<span class="n">fill</span>(<span class="s">&#39;Ada&#39;</span>);
+  <span class="n">expect</span>(<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>).<span class="n">input-value</span>).<span class="nb">to</span>.<span class="o">eq</span>(<span class="s">&#39;Ada&#39;</span>);
+}
+</code></pre></div></td></tr></table></div>
+<p>The same page is also reachable through the example's topic parameter as <code>.page</code>,
+for blocks written <code>-&gt; $_ { ... }</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">it</span> <span class="s">&#39;fills a field&#39;</span>, -&gt; <span class="nv">$_</span> {
   .<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>).<span class="n">fill</span>(<span class="s">&#39;Ada&#39;</span>);
-  <span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#name&#39;</span>).<span class="n">input-value</span>).<span class="nb">to</span>.<span class="o">eq</span>(<span class="s">&#39;Ada&#39;</span>);
 }
 </code></pre></div></td></tr></table></div>
 <p>Each example gets its own context and page, so state set in one example does not
@@ -519,8 +635,8 @@ leak into the next.</p>
 <h2 id="scope">Scope<a class="headerlink" href="#scope" title="Permanent link">&para;</a></h2>
 <ul>
 <li>One browser is launched per <code>describe</code> group, in a <code>before-all</code> hook.</li>
-<li>Each example gets a fresh context and page, created in <code>before-each</code> and the
-  <code>page</code> <code>let</code>.</li>
+<li>Each example gets a fresh context and page, created in <code>before-each</code> and
+  published as the <code>page</code> term.</li>
 <li>The context is closed in <code>after-each</code>; the browser is closed in <code>after-all</code>.</li>
 </ul>
 <h2 id="fixtures">Fixtures<a class="headerlink" href="#fixtures" title="Permanent link">&para;</a></h2>

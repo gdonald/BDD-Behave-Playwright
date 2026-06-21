@@ -8,22 +8,28 @@
       
       
       
+        <link rel="canonical" href="https://gdonald.github.io/BDD-Behave-Playwright/diagnostics/">
       
+      
+        <link rel="prev" href="../matchers/">
+      
+      
+        <link rel="next" href="../end-to-end/">
       
       
         
       
       
-      <link rel="icon" href="/BDD-Behave-Playwright/assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>BDD::Behave::Playwright</title>
+        <title>Failure diagnostics - BDD::Behave::Playwright</title>
       
     
     
-      <link rel="stylesheet" href="/BDD-Behave-Playwright/assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
       
 
@@ -42,7 +48,7 @@
       
     
     
-    <script>__md_scope=new URL("/BDD-Behave-Playwright/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -59,6 +65,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#failure-diagnostics" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -71,7 +82,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/BDD-Behave-Playwright/." title="BDD::Behave::Playwright" class="md-header__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
+    <a href=".." title="BDD::Behave::Playwright" class="md-header__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -91,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Failure diagnostics
             
           </span>
         </div>
@@ -181,7 +192,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/BDD-Behave-Playwright/." title="BDD::Behave::Playwright" class="md-nav__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
+    <a href=".." title="BDD::Behave::Playwright" class="md-nav__button md-logo" aria-label="BDD::Behave::Playwright" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -211,7 +222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/BDD-Behave-Playwright/." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -238,7 +249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/BDD-Behave-Playwright/installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   
@@ -265,7 +276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/BDD-Behave-Playwright/lifecycle/" class="md-nav__link">
+      <a href="../lifecycle/" class="md-nav__link">
         
   
   
@@ -292,7 +303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/BDD-Behave-Playwright/system-tests/" class="md-nav__link">
+      <a href="../system-tests/" class="md-nav__link">
         
   
   
@@ -319,7 +330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/BDD-Behave-Playwright/matchers/" class="md-nav__link">
+      <a href="../matchers/" class="md-nav__link">
         
   
   
@@ -343,10 +354,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/BDD-Behave-Playwright/diagnostics/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Failure diagnostics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -362,6 +400,48 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifacts-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifacts directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traces
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -373,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/BDD-Behave-Playwright/end-to-end/" class="md-nav__link">
+      <a href="../end-to-end/" class="md-nav__link">
         
   
   
@@ -410,6 +490,38 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#artifacts-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artifacts directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traces
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -422,8 +534,55 @@
               
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  
+  
+
+
+<h1 id="failure-diagnostics">Failure diagnostics<a class="headerlink" href="#failure-diagnostics" title="Permanent link">&para;</a></h1>
+<p>When an example managed by <code>playwright-page</code> fails, the lifecycle captures a
+screenshot of the page before the context is closed, so you can see what the
+browser looked like at the point of failure. The capture never throws, so a
+diagnostic problem cannot turn a passing example into a failing one.</p>
+<h2 id="artifacts-directory">Artifacts directory<a class="headerlink" href="#artifacts-directory" title="Permanent link">&para;</a></h2>
+<p>Screenshots are written to an artifacts directory, <code>playwright-artifacts</code> by
+default. Override it per <code>describe</code> or for the whole run:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">describe</span> <span class="s">&#39;checkout&#39;</span>, {
+  <span class="n">playwright-page</span>(<span class="n">fixture</span> =&gt; <span class="s">&#39;specs/fixtures/checkout.html&#39;</span>, <span class="n">artifacts</span> =&gt; <span class="s">&#39;tmp/shots&#39;</span>);
+  <span class="c1"># ...</span>
+}
+</code></pre></div></td></tr></table></div>
+<p>The environment variable <code>PLAYWRIGHT_ARTIFACTS</code> sets the default for every
+example. An explicit <code>artifacts =&gt; ...</code> argument takes precedence.</p>
+<p>Each failure writes <code>failure-&lt;pid&gt;-&lt;n&gt;.png</code>, unique per worker process and
+example, so parallel workers do not collide.</p>
+<h2 id="traces">Traces<a class="headerlink" href="#traces" title="Permanent link">&para;</a></h2>
+<p>A Playwright trace can be dumped alongside the screenshot, gated so it stays off
+by default. Enable it with <code>trace =&gt; True</code> or the <code>PLAYWRIGHT_TRACE</code> environment
+variable:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">playwright-page</span>(<span class="n">fixture</span> =&gt; <span class="s">&#39;specs/fixtures/checkout.html&#39;</span>, <span class="n">trace</span> =&gt; <span class="nb">True</span>);
+</code></pre></div></td></tr></table></div>
+<p>When tracing is on, each example records a trace; on failure the trace is written
+as <code>failure-&lt;pid&gt;-&lt;n&gt;.zip</code> next to the screenshot, and on success it is discarded.
+Open a trace with <code>npx playwright show-trace &lt;file&gt;.zip</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -460,10 +619,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/BDD-Behave-Playwright/", "features": [], "search": "/BDD-Behave-Playwright/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="/BDD-Behave-Playwright/assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
