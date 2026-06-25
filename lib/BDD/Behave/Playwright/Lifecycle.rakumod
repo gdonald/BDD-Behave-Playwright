@@ -3,6 +3,7 @@ use v6.d;
 use BDD::Behave;
 use WWW::Playwright;
 use BDD::Behave::Playwright::Diagnostics;
+use BDD::Behave::Playwright::Session;
 
 unit module BDD::Behave::Playwright::Lifecycle;
 
@@ -33,6 +34,8 @@ our sub playwright-page(Str :$fixture, :$artifacts, Bool :$trace --> Nil) is exp
     $page = $context.new-page;
     $page.goto($target) if $target.defined;
 
+    set-current-page($page);
+
     $failure-base = failure-count();
   }
 
@@ -44,6 +47,8 @@ our sub playwright-page(Str :$fixture, :$artifacts, Bool :$trace --> Nil) is exp
     $context.close if $context;
     $context = Nil;
     $page    = Nil;
+
+    set-current-page(Nil);
   }
 
   after-all {

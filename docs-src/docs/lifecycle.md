@@ -15,21 +15,30 @@ use BDD::Behave::Playwright;
 describe 'the greeting page', {
   playwright-page(fixture => 'specs/fixtures/hello.html');
 
-  it 'shows the greeting', -> $_ {
-    expect(.page.locator('#greeting').text-content).to.eq('Hello, world');
+  it 'shows the greeting', {
+    expect(page.locator('#greeting').text-content).to.eq('Hello, world');
   }
 }
 ```
 
-## The `page` subject
+## The `page` term
 
-`playwright-page` exposes the current page as a `let` named `page`. Read it through
-the example's topic parameter, as `.page`:
+`use BDD::Behave::Playwright` brings a `page` term into scope that returns the
+current page:
+
+```raku
+it 'fills a field', {
+  page.locator('#name').fill('Ada');
+  expect(page.locator('#name').input-value).to.eq('Ada');
+}
+```
+
+The same page is also reachable through the example's topic parameter as `.page`,
+for blocks written `-> $_ { ... }`:
 
 ```raku
 it 'fills a field', -> $_ {
   .page.locator('#name').fill('Ada');
-  expect(.page.locator('#name').input-value).to.eq('Ada');
 }
 ```
 
@@ -39,8 +48,8 @@ leak into the next.
 ## Scope
 
 - One browser is launched per `describe` group, in a `before-all` hook.
-- Each example gets a fresh context and page, created in `before-each` and the
-  `page` `let`.
+- Each example gets a fresh context and page, created in `before-each` and
+  published as the `page` term.
 - The context is closed in `after-each`; the browser is closed in `after-all`.
 
 ## Fixtures

@@ -43,8 +43,8 @@ use BDD::Behave::Playwright;
 describe 'smoke', {
   playwright-page(fixture => 'specs/fixtures/hello.html');
 
-  it 'loads the page', -> $_ {
-    expect(.page.locator('#greeting')).to.be-visible;
+  it 'loads the page', {
+    expect(page.locator('#greeting')).to.be-visible;
   }
 }
 ```

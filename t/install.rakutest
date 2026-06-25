@@ -1,0 +1,37 @@
+use v6.d;
+use lib 'lib';
+use Test;
+
+use BDD::Behave::Configuration;
+use BDD::Behave::Playwright;
+use BDD::Behave::Playwright::Session;
+
+constant Configuration = BDD::Behave::Configuration::Configuration;
+constant PageHelper    = BDD::Behave::Playwright::Session::PageHelper;
+
+plan 13;
+
+my $config = Configuration.new;
+BDD::Behave::Playwright.install($config, :type<system>);
+
+for <before-all before-each after-each after-all> -> $phase {
+  my @hooks = $config.hooks-for($phase).list;
+
+  is @hooks.elems, 1, "install registers one $phase config hook";
+  is @hooks[0].meta<type>, 'system', "the $phase hook is filtered to type system";
+}
+
+my @includes = $config.includes.list;
+
+is @includes.elems, 1, 'install registers the page helper';
+ok @includes[0].class === PageHelper, 'the registered helper is PageHelper';
+is @includes[0].meta<type>, 'system', 'the helper include is tagged type system';
+
+nok PageHelper.new.page.defined,
+  'the page helper has no page before one is opened';
+
+my $custom = Configuration.new;
+BDD::Behave::Playwright.install($custom, :type<feature>);
+
+is $custom.hooks-for('before-each')[0].meta<type>, 'feature',
+  'install accepts a custom type';

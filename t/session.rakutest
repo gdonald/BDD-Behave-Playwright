@@ -1,0 +1,34 @@
+use v6.d;
+use lib 'lib';
+use Test;
+
+use WWW::Playwright;
+use BDD::Behave::Playwright;
+use BDD::Behave::Playwright::Session;
+
+plan 7;
+
+configure();
+
+start-browser();
+
+open-page();
+my $page = current-page();
+
+isa-ok $page, WWW::Playwright::Page, 'open-page produces a live page';
+is page(), $page, 'the exported page term returns the current page';
+
+$page.goto(fixture-url('specs/fixtures/hello.html'));
+is $page.title, 'Hello', 'the session page navigates and reads the document title';
+
+finish-page();
+nok current-page().defined, 'finish-page clears the current page';
+
+stop-browser();
+nok current-page().defined, 'stop-browser leaves no current page';
+
+set-current-page($page);
+is page(), $page, 'set-current-page updates the current page';
+
+set-current-page(Nil);
+nok page().defined, 'set-current-page can clear the current page';

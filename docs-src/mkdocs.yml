@@ -5,6 +5,7 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Browser lifecycle: lifecycle.md
+  - System tests: system-tests.md
   - Matchers: matchers.md
   - Failure diagnostics: diagnostics.md
   - End to end: end-to-end.md

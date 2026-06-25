@@ -2,3 +2,4 @@
 .behave-failures
 docs-src/site/
 playwright-artifacts*/
+.fezignore
