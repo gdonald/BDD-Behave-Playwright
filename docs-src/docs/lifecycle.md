@@ -52,6 +52,19 @@ leak into the next.
   published as the `page` term.
 - The context is closed in `after-each`; the browser is closed in `after-all`.
 
+## Watching the browser
+
+The browser runs headless by default. Set `SHOW_CHROME` to launch it headed, so
+the window is visible while the examples drive it:
+
+```sh
+SHOW_CHROME=1 behave specs/some-browser-spec.raku
+```
+
+`headless-from-env` reads the variable and is what `playwright-page` passes to
+`launch`. An unset variable, or the value `0`, stays headless; any other value
+runs headed. Headed runs suit watching a suite locally. Leave it unset in CI.
+
 ## Fixtures
 
 `fixture-url` turns a filesystem path into an absolute `file://` URL:
@@ -63,3 +76,54 @@ fixture-url('specs/fixtures/hello.html');  # file:///abs/path/specs/fixtures/hel
 `playwright-page(fixture => ...)` calls it for you. Pass an absolute or
 working-directory-relative path to a local HTML file. Browser tests run against
 local `file://` fixtures, never the network.
+
+## A base URL and `visit`
+
+To drive a running application instead of a file fixture, give `playwright-page`
+a `base-url`. `visit` then navigates the current page to a path beneath it:
+
+```raku
+describe 'the dashboard', {
+  playwright-page(base-url => 'http://127.0.0.1:8080');
+
+  it 'greets the user', -> $_ {
+    visit('/dashboard');
+    expect(.page.locator('#welcome')).to.have-text('Welcome');
+  }
+}
+```
+
+`visit('/path')` joins the path onto the base URL. An absolute URL
+(`visit('http://...')`) is used unchanged. `goto($url)` navigates to a URL
+directly, without the base.
+
+The base URL may be a callable, which is resolved at navigation time. That suits
+a server whose address is known only once it has started, such as a test server
+bound to an ephemeral port:
+
+```raku
+playwright-page(base-url => { test-server-url() });
+```
+
+## Context options
+
+`context` passes options through to the browser context that each example runs
+in, so a `describe` can emulate a device, such as a mobile viewport, a color
+scheme, or a locale:
+
+```raku
+describe 'the mobile menu', {
+  playwright-page(
+    base-url => 'http://127.0.0.1:8080',
+    context  => { viewport => { width => 390, height => 844 } });
+
+  it 'shows the hamburger toggle', -> $_ {
+    visit('/');
+    expect(.page.locator('.menu-toggle')).to.be-visible;
+  }
+}
+```
+
+The keys are the options that [WWW::Playwright's
+`new-context`](https://github.com/gdonald/WWW-Playwright) accepts, such as
+`viewport`, `is-mobile`, `has-touch`, `color-scheme`, and `locale`.

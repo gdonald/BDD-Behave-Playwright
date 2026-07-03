@@ -33,6 +33,18 @@ sub fixture-url(|args) is export {
   BDD::Behave::Playwright::Lifecycle::fixture-url(|args);
 }
 
+sub headless-from-env(|args) is export {
+  BDD::Behave::Playwright::Lifecycle::headless-from-env(|args);
+}
+
 sub page() is export {
   BDD::Behave::Playwright::Session::current-page();
+}
+
+sub visit(|args) is export {
+  BDD::Behave::Playwright::Lifecycle::visit(|args);
+}
+
+sub goto(|args) is export {
+  BDD::Behave::Playwright::Lifecycle::goto(|args);
 }

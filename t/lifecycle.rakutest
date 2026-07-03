@@ -2,13 +2,35 @@ use v6.d;
 use lib 'lib';
 use Test;
 use BDD::Behave::Playwright;
+use BDD::Behave::Playwright::Session;
 use WWW::Playwright;
 
-plan 2;
+plan 15;
 
 is fixture-url('specs/fixtures/hello.html'),
    'file://' ~ 'specs/fixtures/hello.html'.IO.absolute,
    'fixture-url turns a path into an absolute file URL';
+
+is headless-from-env({}), True,
+   'headless-from-env runs headless when SHOW_CHROME is unset';
+
+is headless-from-env({ SHOW_CHROME => '1' }), False,
+   'headless-from-env runs headed when SHOW_CHROME is set';
+
+is headless-from-env({ SHOW_CHROME => '0' }), True,
+   'headless-from-env stays headless when SHOW_CHROME is zero';
+
+is headless-from-env({ SHOW_CHROME => 'false' }), True,
+   'headless-from-env stays headless for the word false';
+
+is headless-from-env({ SHOW_CHROME => 'no' }), True,
+   'headless-from-env stays headless for the word no';
+
+is headless-from-env({ SHOW_CHROME => 'off' }), True,
+   'headless-from-env stays headless for the word off';
+
+is headless-from-env({ SHOW_CHROME => ' OFF ' }), True,
+   'headless-from-env ignores surrounding whitespace and case';
 
 my $playwright = WWW::Playwright.start;
 my $browser    = $playwright.launch;
@@ -20,6 +42,50 @@ $page.goto(fixture-url('specs/fixtures/hello.html'));
 is $page.locator('#greeting').text-content, 'Hello, world',
    'a launched page navigates to the fixture and is usable';
 
+set-current-page($page);
+
+set-current-base-url(fixture-url('specs/fixtures'));
+visit('/hello.html');
+is $page.locator('#greeting').text-content, 'Hello, world',
+   'visit navigates to a path beneath the base url';
+
+visit(fixture-url('specs/fixtures/hello.html'));
+is $page.locator('#greeting').text-content, 'Hello, world',
+   'visit navigates to an absolute url unchanged';
+
+set-current-base-url({ fixture-url('specs/fixtures') });
+visit('/hello.html');
+is $page.locator('#greeting').text-content, 'Hello, world',
+   'visit resolves a callable base url at navigation time';
+
+goto(fixture-url('specs/fixtures/responsive.html'));
+ok $page.locator('#wide').is-visible,
+   'goto navigates the current page directly to a url';
+
+set-current-page(Nil);
+set-current-base-url(Nil);
+
 $context.close;
+
+my $narrow-context = $browser.new-context(viewport => { width => 400, height => 800 });
+my $narrow-page    = $narrow-context.new-page;
+
+$narrow-page.goto(fixture-url('specs/fixtures/responsive.html'));
+
+ok $narrow-page.locator('#narrow').is-visible,
+   'a context with a narrow viewport applies the viewport to the page';
+
+$narrow-context.close;
+
+my $dark-context = $browser.new-context(color-scheme => 'dark');
+my $dark-page    = $dark-context.new-page;
+
+$dark-page.goto(fixture-url('specs/fixtures/responsive.html'));
+
+ok $dark-page.locator('#dark').is-visible,
+   'a context with a dark color scheme applies the scheme to the page';
+
+$dark-context.close;
+
 $browser.close;
 $playwright.stop;

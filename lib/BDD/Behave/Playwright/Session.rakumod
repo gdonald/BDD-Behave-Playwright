@@ -9,6 +9,7 @@ my $playwright;
 my $browser;
 my $context;
 my $page;
+my $base-url;
 my $failure-base;
 my $dir;
 my $trace-on;
@@ -36,6 +37,14 @@ our sub current-page() is export { $page }
 
 our sub set-current-page($new-page --> Nil) is export {
   $page = $new-page;
+}
+
+our sub current-base-url() is export {
+  $base-url ~~ Callable ?? $base-url() !! $base-url
+}
+
+our sub set-current-base-url($new-base-url --> Nil) is export {
+  $base-url = $new-base-url;
 }
 
 our sub finish-page(--> Nil) is export {

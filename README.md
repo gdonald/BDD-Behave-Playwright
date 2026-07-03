@@ -5,7 +5,7 @@ Browser lifecycle hooks and Playwright-aware matchers for
 
 It is glue between BDD::Behave and
 [WWW::Playwright](https://github.com/gdonald/WWW-Playwright). It contains no
-browser driving of its own; that all lives in WWW::Playwright. This distribution
+browser driving of its own, that all lives in WWW::Playwright. This distribution
 wires a Playwright page into a behave `describe`/`it` flow and lets you write
 expectations against it.
 
