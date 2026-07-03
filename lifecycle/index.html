@@ -369,10 +369,43 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#watching-the-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watching the browser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fixtures" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-base-url-and-visit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A base URL and visit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context options
       
     </span>
   </a>
@@ -555,10 +588,43 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#watching-the-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Watching the browser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fixtures" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-base-url-and-visit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A base URL and visit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context options
       
     </span>
   </a>
@@ -639,6 +705,14 @@ leak into the next.</p>
   published as the <code>page</code> term.</li>
 <li>The context is closed in <code>after-each</code>; the browser is closed in <code>after-all</code>.</li>
 </ul>
+<h2 id="watching-the-browser">Watching the browser<a class="headerlink" href="#watching-the-browser" title="Permanent link">&para;</a></h2>
+<p>The browser runs headless by default. Set <code>SHOW_CHROME</code> to launch it headed, so
+the window is visible while the examples drive it:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">SHOW_CHROME</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>behave<span class="w"> </span>specs/some-browser-spec.raku
+</code></pre></div></td></tr></table></div>
+<p><code>headless-from-env</code> reads the variable and is what <code>playwright-page</code> passes to
+<code>launch</code>. An unset variable, or the value <code>0</code>, stays headless; any other value
+runs headed. Headed runs suit watching a suite locally. Leave it unset in CI.</p>
 <h2 id="fixtures">Fixtures<a class="headerlink" href="#fixtures" title="Permanent link">&para;</a></h2>
 <p><code>fixture-url</code> turns a filesystem path into an absolute <code>file://</code> URL:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">fixture-url</span>(<span class="s">&#39;specs/fixtures/hello.html&#39;</span>);  <span class="c1"># file:///abs/path/specs/fixtures/hello.html</span>
@@ -646,6 +720,60 @@ leak into the next.</p>
 <p><code>playwright-page(fixture =&gt; ...)</code> calls it for you. Pass an absolute or
 working-directory-relative path to a local HTML file. Browser tests run against
 local <code>file://</code> fixtures, never the network.</p>
+<h2 id="a-base-url-and-visit">A base URL and <code>visit</code><a class="headerlink" href="#a-base-url-and-visit" title="Permanent link">&para;</a></h2>
+<p>To drive a running application instead of a file fixture, give <code>playwright-page</code>
+a <code>base-url</code>. <code>visit</code> then navigates the current page to a path beneath it:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">describe</span> <span class="s">&#39;the dashboard&#39;</span>, {
+  <span class="n">playwright-page</span>(<span class="n">base-url</span> =&gt; <span class="s">&#39;http://127.0.0.1:8080&#39;</span>);
+
+  <span class="n">it</span> <span class="s">&#39;greets the user&#39;</span>, -&gt; <span class="nv">$_</span> {
+    <span class="n">visit</span>(<span class="s">&#39;/dashboard&#39;</span>);
+    <span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;#welcome&#39;</span>)).<span class="nb">to</span>.<span class="n">have-text</span>(<span class="s">&#39;Welcome&#39;</span>);
+  }
+}
+</code></pre></div></td></tr></table></div>
+<p><code>visit('/path')</code> joins the path onto the base URL. An absolute URL
+(<code>visit('http://...')</code>) is used unchanged. <code>goto($url)</code> navigates to a URL
+directly, without the base.</p>
+<p>The base URL may be a callable, which is resolved at navigation time. That suits
+a server whose address is known only once it has started, such as a test server
+bound to an ephemeral port:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">playwright-page</span>(<span class="n">base-url</span> =&gt; { <span class="n">test-server-url</span>() });
+</code></pre></div></td></tr></table></div>
+<h2 id="context-options">Context options<a class="headerlink" href="#context-options" title="Permanent link">&para;</a></h2>
+<p><code>context</code> passes options through to the browser context that each example runs
+in, so a <code>describe</code> can emulate a device, such as a mobile viewport, a color
+scheme, or a locale:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">describe</span> <span class="s">&#39;the mobile menu&#39;</span>, {
+  <span class="n">playwright-page</span>(
+    <span class="n">base-url</span> =&gt; <span class="s">&#39;http://127.0.0.1:8080&#39;</span>,
+    <span class="n">context</span>  =&gt; { <span class="n">viewport</span> =&gt; { <span class="n">width</span> =&gt; <span class="mi">390</span>, <span class="n">height</span> =&gt; <span class="mi">844</span> } });
+
+  <span class="n">it</span> <span class="s">&#39;shows the hamburger toggle&#39;</span>, -&gt; <span class="nv">$_</span> {
+    <span class="n">visit</span>(<span class="s">&#39;/&#39;</span>);
+    <span class="n">expect</span>(.<span class="n">page</span>.<span class="n">locator</span>(<span class="s">&#39;.menu-toggle&#39;</span>)).<span class="nb">to</span>.<span class="n">be-visible</span>;
+  }
+}
+</code></pre></div></td></tr></table></div>
+<p>The keys are the options that <a href="https://github.com/gdonald/WWW-Playwright">WWW::Playwright's
+<code>new-context</code></a> accepts, such as
+<code>viewport</code>, <code>is-mobile</code>, <code>has-touch</code>, <code>color-scheme</code>, and <code>locale</code>.</p>
 
 
 
