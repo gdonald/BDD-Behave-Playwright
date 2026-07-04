@@ -52,11 +52,12 @@ jobs:
         if: matrix.stage == 'behave'
         run: zef install --/test 'BDD::Behave:auth<zef:gdonald>'
 
-      - name: Install Playwright npm dependency
-        run: npm install playwright
-
-      - name: Install Chromium browser
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright sidecar dependencies
+        run: |
+          dir=$(raku -e 'use WWW::Playwright::Sidecar; put WWW::Playwright::Sidecar.sidecar-home.absolute')
+          cd "$dir"
+          npm install
+          npx playwright install --with-deps chromium
 
       - name: Run ${{ matrix.stage }}
         run: ./test.raku ${{ matrix.stage }}
