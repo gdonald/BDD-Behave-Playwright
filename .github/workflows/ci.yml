@@ -38,8 +38,10 @@ jobs:
           restore-keys: |
             zef-ubuntu-latest-
 
-      - name: Install WWW::Playwright
-        run: zef install --/test 'https://github.com/gdonald/WWW-Playwright.git'
+      - name: Install from git
+        run: |
+          zef install --/test --force-install https://github.com/gdonald/BDD-Behave.git
+          zef install --/test --force-install https://github.com/gdonald/WWW-Playwright.git
 
       - name: Install Raku dependencies
         run: zef install --deps-only --/test --test-depends .
@@ -47,10 +49,6 @@ jobs:
       - name: Install prove6
         if: matrix.stage == 'prove6'
         run: zef install --/test App::Prove6
-
-      - name: Install BDD::Behave
-        if: matrix.stage == 'behave'
-        run: zef install --/test 'BDD::Behave:auth<zef:gdonald>'
 
       - name: Install Playwright sidecar dependencies
         run: |
