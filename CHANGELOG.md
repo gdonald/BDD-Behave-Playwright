@@ -3,6 +3,24 @@
 All notable changes to `BDD::Behave::Playwright` are documented here. Versions
 follow semver (MAJOR.MINOR.PATCH).
 
+## v0.9.1 - 2026-07-10
+
+### Added
+
+- `visit` sub that navigates the current page to a path. A path with a scheme
+  (`https://`, `file://`) is used as-is; a relative path is resolved against the
+  configured base URL.
+- `goto` sub that navigates the current page to an explicit URL.
+- `base-url` option on `playwright-page`, plus `current-base-url` /
+  `set-current-base-url` subs, so relative `visit` paths resolve against a base
+  URL for the duration of each example. The base URL may be a value or a
+  `Callable` resolved at navigation time.
+- `context` option on `playwright-page` that passes options through to the
+  browser context created for each example.
+- `SHOW_CHROME` environment toggle via `headless-from-env`: an empty, `0`,
+  `false`, `no`, or `off` value keeps the browser headless, any other value runs
+  it headed.
+
 ## v0.9.0 - 2026-06-25
 
 ### Added
