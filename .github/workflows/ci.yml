@@ -10,7 +10,7 @@ on:
 jobs:
   test:
     if: github.event.context == 'continuous-integration/jenkins/branch' && github.event.state == 'success'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -39,9 +39,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.zef
-          key: zef-ubuntu-latest-${{ hashFiles('META6.json') }}
+          key: zef-ubuntu-24.04-${{ hashFiles('META6.json') }}
           restore-keys: |
-            zef-ubuntu-latest-
+            zef-ubuntu-24.04-
 
       - name: Install from git
         run: |
