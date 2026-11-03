@@ -5,7 +5,7 @@ use BDD::Behave;
 use BDD::Behave::Playwright;
 use WWW::Playwright;
 
-plan 15;
+plan 18;
 
 my $playwright = WWW::Playwright.start;
 my $browser    = $playwright.launch;
@@ -66,6 +66,22 @@ ok passes({ expect($page.locator('#async-status')).to.be-visible }),
 
 ok passes({ expect($page.locator('#status')).not.to.be-visible(timeout => 0.3) }),
    'be-visible negates for a hidden element';
+
+sub failure-message-of(&matcher --> Str) {
+  capture-failures(&matcher).head.message;
+}
+
+like failure-message-of({ expect($page.locator('p.missing')).to.have-text('anything', timeout => 0.3) }),
+     /'to have text anything, but text was ""' $/,
+     'have-text fails with the empty text when the locator matches no element';
+
+like failure-message-of({ expect($page.locator('input.missing')).to.have-value('Ada', timeout => 0.3) }),
+     /'to have value Ada, but value was ""' $/,
+     'have-value fails with the empty value when the locator matches no element';
+
+like failure-message-of({ expect($page.locator('input.missing')).to.have-attribute('type', 'text', timeout => 0.3) }),
+     /'to have attribute "type" text, but it was Str' $/,
+     'have-attribute fails with an undefined attribute when the locator matches no element';
 
 $context.close;
 $browser.close;

@@ -26,7 +26,17 @@ sub value-matches($actual, $expected --> Bool) {
   ($actual // '') eq $expected;
 }
 
-sub text-of($locator) { $locator.text-content // '' }
+sub text-of($locator) {
+  $locator.count ?? ($locator.text-content // '') !! '';
+}
+
+sub value-of($locator) {
+  $locator.count ?? $locator.input-value !! Str;
+}
+
+sub attribute-of($locator, Str $name) {
+  $locator.count ?? $locator.get-attribute($name) !! Str;
+}
 
 sub count-ok(Int $found, Mu $count, Mu $minimum, Mu $maximum --> Bool) {
   return $found == $count if $count.defined;
@@ -98,26 +108,26 @@ define-matcher 'have-text',
 
 define-matcher 'have-value',
   match => -> $loc, $expected, :$timeout = DEFAULT-TIMEOUT {
-    poll-until({ value-matches($loc.input-value, $expected) }, $timeout);
+    poll-until({ value-matches(value-of($loc), $expected) }, $timeout);
   },
-  failure-message         => -> $loc, $expected, *% { "expected locator {$loc.handle} to have value {$expected.gist}, but value was {($loc.input-value // '').raku}" },
-  failure-message-negated => -> $loc, $expected, *% { "expected locator {$loc.handle} not to have value {$expected.gist}, but value was {($loc.input-value // '').raku}" },
+  failure-message         => -> $loc, $expected, *% { "expected locator {$loc.handle} to have value {$expected.gist}, but value was {(value-of($loc) // '').raku}" },
+  failure-message-negated => -> $loc, $expected, *% { "expected locator {$loc.handle} not to have value {$expected.gist}, but value was {(value-of($loc) // '').raku}" },
   description             => -> $expected, *% { "have value {$expected.gist}" };
 
 define-matcher 'have-attribute',
   match => -> $loc, $name, $expected = Whatever, :$timeout = DEFAULT-TIMEOUT {
     poll-until({
-      my $value = $loc.get-attribute($name);
+      my $value = attribute-of($loc, $name);
       $expected ~~ Whatever ?? $value.defined !! ($value.defined && value-matches($value, $expected));
     }, $timeout);
   },
   failure-message => -> $loc, $name, $expected = Whatever, *% {
     my $goal = $expected ~~ Whatever ?? "attribute {$name.raku}" !! "attribute {$name.raku} {$expected.gist}";
-    "expected locator {$loc.handle} to have $goal, but it was {$loc.get-attribute($name).raku}";
+    "expected locator {$loc.handle} to have $goal, but it was {attribute-of($loc, $name).raku}";
   },
   failure-message-negated => -> $loc, $name, $expected = Whatever, *% {
     my $goal = $expected ~~ Whatever ?? "attribute {$name.raku}" !! "attribute {$name.raku} {$expected.gist}";
-    "expected locator {$loc.handle} not to have $goal, but it was {$loc.get-attribute($name).raku}";
+    "expected locator {$loc.handle} not to have $goal, but it was {attribute-of($loc, $name).raku}";
   },
   description => -> $name, $expected = Whatever, *% {
     $expected ~~ Whatever ?? "have attribute {$name.raku}" !! "have attribute {$name.raku} {$expected.gist}";

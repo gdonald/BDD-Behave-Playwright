@@ -66,4 +66,36 @@ describe 'Playwright matchers', {
   it 'be-visible negates for a hidden element', -> $_ {
     expect(.page.locator('#status')).not.to.be-visible(timeout => 0.3);
   }
+
+  context 'when the locator matches no element', {
+    it 'have-text fails with the empty text', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page.locator('p.missing')).to.have-text('anything', timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have text anything, but text was ""' $/);
+    }
+
+    it 'have-value fails with the empty value', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page.locator('input.missing')).to.have-value('Ada', timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have value Ada, but value was ""' $/);
+    }
+
+    it 'have-attribute fails with an undefined attribute', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page.locator('input.missing')).to.have-attribute('type', 'text', timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have attribute "type" text, but it was Str' $/);
+    }
+  }
 }
