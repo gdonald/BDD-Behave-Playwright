@@ -5,7 +5,7 @@ use BDD::Behave;
 use BDD::Behave::Playwright;
 use WWW::Playwright;
 
-plan 18;
+plan 20;
 
 my $playwright = WWW::Playwright.start;
 my $browser    = $playwright.launch;
@@ -80,8 +80,16 @@ like failure-message-of({ expect($page.locator('input.missing')).to.have-value('
      'have-value fails with the empty value when the locator matches no element';
 
 like failure-message-of({ expect($page.locator('input.missing')).to.have-attribute('type', 'text', timeout => 0.3) }),
-     /'to have attribute "type" text, but it was Str' $/,
-     'have-attribute fails with an undefined attribute when the locator matches no element';
+     /'to have attribute "type" text, but the attribute was missing' $/,
+     'have-attribute fails with a missing attribute when the locator matches no element';
+
+like failure-message-of({ expect($page.locator('#greeting')).to.have-attribute('alt', 'Grace Hopper', timeout => 0.3) }),
+     /'to have attribute "alt" Grace Hopper, but the attribute was missing' $/,
+     'have-attribute fails with a missing attribute when the element lacks the attribute';
+
+like failure-message-of({ expect($page.locator('#name')).to.have-attribute('type', 'checkbox', timeout => 0.3) }),
+     /'to have attribute "type" checkbox, but it was "text"' $/,
+     'have-attribute fails with the actual value when the attribute has a different value';
 
 $context.close;
 $browser.close;

@@ -123,7 +123,10 @@ define-matcher 'have-attribute',
   },
   failure-message => -> $loc, $name, $expected = Whatever, *% {
     my $goal = $expected ~~ Whatever ?? "attribute {$name.raku}" !! "attribute {$name.raku} {$expected.gist}";
-    "expected locator {$loc.handle} to have $goal, but it was {attribute-of($loc, $name).raku}";
+    my $value = attribute-of($loc, $name);
+
+    "expected locator {$loc.handle} to have $goal, but "
+      ~ ($value.defined ?? "it was {$value.raku}" !! 'the attribute was missing');
   },
   failure-message-negated => -> $loc, $name, $expected = Whatever, *% {
     my $goal = $expected ~~ Whatever ?? "attribute {$name.raku}" !! "attribute {$name.raku} {$expected.gist}";

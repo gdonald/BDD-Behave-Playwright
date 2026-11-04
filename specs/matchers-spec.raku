@@ -88,14 +88,38 @@ describe 'Playwright matchers', {
       expect($failure.message).to.match(/'to have value Ada, but value was ""' $/);
     }
 
-    it 'have-attribute fails with an undefined attribute', -> $_ {
+    it 'have-attribute fails with a missing attribute', -> $_ {
       my $page = .page;
 
       my $failure = capture-failures({
         expect($page.locator('input.missing')).to.have-attribute('type', 'text', timeout => 0.3);
       }).head;
 
-      expect($failure.message).to.match(/'to have attribute "type" text, but it was Str' $/);
+      expect($failure.message).to.match(/'to have attribute "type" text, but the attribute was missing' $/);
+    }
+  }
+
+  context 'when the element lacks the attribute', {
+    it 'have-attribute fails with a missing attribute', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page.locator('#greeting')).to.have-attribute('alt', 'Grace Hopper', timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have attribute "alt" Grace Hopper, but the attribute was missing' $/);
+    }
+  }
+
+  context 'when the attribute has a different value', {
+    it 'have-attribute fails with the actual value', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page.locator('#name')).to.have-attribute('type', 'checkbox', timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have attribute "type" checkbox, but it was "text"' $/);
     }
   }
 }
