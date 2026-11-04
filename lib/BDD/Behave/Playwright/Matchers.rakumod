@@ -58,6 +58,10 @@ sub css-with-text(Str $selector, Mu $text --> Str) {
   $selector ~ ':has-text("' ~ $escaped ~ '")';
 }
 
+sub show-expected(Mu $expected --> Str) {
+  $expected ~~ Str ?? $expected.raku !! $expected.gist;
+}
+
 sub css-goal(Mu $count, Mu $minimum, Mu $maximum --> Str) {
   return "exactly $count"                  if $count.defined;
   return "between {$minimum // 1} and $maximum" if $maximum.defined;
@@ -166,9 +170,9 @@ define-matcher 'have-title',
       $expected ~~ Regex ?? ($title ~~ $expected).Bool !! $title.contains($expected);
     }, $timeout);
   },
-  failure-message         => -> $page, $expected, *% { "expected the page to have title {$expected.gist}, but title was {($page.title // '').raku}" },
-  failure-message-negated => -> $page, $expected, *% { "expected the page not to have title {$expected.gist}, but title was {($page.title // '').raku}" },
-  description             => -> $expected, *% { "have title {$expected.gist}" };
+  failure-message         => -> $page, $expected, *% { "expected the page to have title {show-expected($expected)}, but title was {($page.title // '').raku}" },
+  failure-message-negated => -> $page, $expected, *% { "expected the page not to have title {show-expected($expected)}, but title was {($page.title // '').raku}" },
+  description             => -> $expected, *% { "have title {show-expected($expected)}" };
 
 define-matcher 'have-current-path',
   match => -> $page, $expected, :$url, :$timeout = DEFAULT-TIMEOUT {
@@ -179,10 +183,10 @@ define-matcher 'have-current-path',
   },
   failure-message => -> $page, $expected, :$url, *% {
     my $actual = $url ?? $page.url !! path-of($page.url);
-    "expected the page to have current path {$expected.gist}, but path was {$actual.raku}";
+    "expected the page to have current path {show-expected($expected)}, but path was {$actual.raku}";
   },
   failure-message-negated => -> $page, $expected, :$url, *% {
     my $actual = $url ?? $page.url !! path-of($page.url);
-    "expected the page not to have current path {$expected.gist}, but path was {$actual.raku}";
+    "expected the page not to have current path {show-expected($expected)}, but path was {$actual.raku}";
   },
-  description => -> $expected, :$url, *% { "have current path {$expected.gist}" };
+  description => -> $expected, :$url, *% { "have current path {show-expected($expected)}" };

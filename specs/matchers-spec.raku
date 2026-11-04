@@ -122,4 +122,38 @@ describe 'Playwright matchers', {
       expect($failure.message).to.match(/'to have attribute "type" checkbox, but it was "text"' $/);
     }
   }
+
+  context 'when the page has a different title', {
+    it 'have-title fails with the quoted expected title', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page).to.have-title('Companies', timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have title "Companies", but title was "Hello"' $/);
+    }
+
+    it 'have-title fails with the expected pattern for a regex', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page).to.have-title(/Companies/, timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have title /Companies/, but title was "Hello"' $/);
+    }
+  }
+
+  context 'when the page has a different current path', {
+    it 'have-current-path fails with the quoted expected path', -> $_ {
+      my $page = .page;
+
+      my $failure = capture-failures({
+        expect($page).to.have-current-path('/companies', timeout => 0.3);
+      }).head;
+
+      expect($failure.message).to.match(/'to have current path "/companies", but path was "' .+ '"' $/);
+    }
+  }
 }

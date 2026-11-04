@@ -5,7 +5,7 @@ use BDD::Behave;
 use BDD::Behave::Playwright;
 use WWW::Playwright;
 
-plan 20;
+plan 23;
 
 my $playwright = WWW::Playwright.start;
 my $browser    = $playwright.launch;
@@ -90,6 +90,18 @@ like failure-message-of({ expect($page.locator('#greeting')).to.have-attribute('
 like failure-message-of({ expect($page.locator('#name')).to.have-attribute('type', 'checkbox', timeout => 0.3) }),
      /'to have attribute "type" checkbox, but it was "text"' $/,
      'have-attribute fails with the actual value when the attribute has a different value';
+
+like failure-message-of({ expect($page).to.have-title('Companies', timeout => 0.3) }),
+     /'to have title "Companies", but title was "Hello"' $/,
+     'have-title fails with the quoted expected title when the page has a different title';
+
+like failure-message-of({ expect($page).to.have-title(/Companies/, timeout => 0.3) }),
+     /'to have title /Companies/, but title was "Hello"' $/,
+     'have-title fails with the expected pattern for a regex when the page has a different title';
+
+like failure-message-of({ expect($page).to.have-current-path('/companies', timeout => 0.3) }),
+     /'to have current path "/companies", but path was "' .+ '"' $/,
+     'have-current-path fails with the quoted expected path when the page has a different current path';
 
 $context.close;
 $browser.close;
