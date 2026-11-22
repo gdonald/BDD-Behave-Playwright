@@ -22,12 +22,16 @@ our sub net-log-enabled($explicit?) is export {
   ($explicit // ?%*ENV<PLAYWRIGHT_NET_LOG>).Bool;
 }
 
+my atomicint $net-log-launches = 0;
+
 our sub net-log-args(Str :$dir!, Bool :$enabled = net-log-enabled() --> List) is export {
   return () unless $enabled;
 
   $dir.IO.mkdir;
 
-  ("--log-net-log={$dir.IO.add("net-log-{$*PID}.json").absolute}",);
+  my $launch = ++⚛$net-log-launches;
+
+  ("--log-net-log={$dir.IO.add("net-log-{$*PID}-{$launch}.json").absolute}",);
 }
 
 our sub failure-count(--> Int) is export {

@@ -5,9 +5,9 @@ use BDD::Behave::Playwright::Diagnostics;
 use BDD::Behave::Playwright::Session;
 
 sub net-log-size(Str $dir --> Int) {
-  my $file = $dir.IO.add("net-log-{$*PID}.json");
+  return 0 unless $dir.IO.d;
 
-  $file.e ?? $file.s !! 0;
+  $dir.IO.dir(test => /^ "net-log-{$*PID}-" \d+ ".json" $/).map(*.s).sum;
 }
 
 sub remove-dir(Str $dir --> Nil) {
@@ -66,14 +66,23 @@ describe 'net-log-args', {
       expect(args[0].starts-with("--log-net-log={$dir.IO.absolute}/")).to.be-truthy;
     }
 
-    it 'names the log file after the process id', {
-      expect(args[0].ends-with("net-log-{$*PID}.json")).to.be-truthy;
+    it 'names the log file after the process id and a launch number', {
+      expect(args[0]).to.match(/ "/net-log-{$*PID}-" \d+ ".json" $/);
     }
 
     it 'creates the artifacts folder', {
       args;
 
       expect($dir.IO.d).to.be-truthy;
+    }
+  }
+
+  context 'when called twice in one process', {
+    let(:first-args, { net-log-args(:$dir, :enabled) });
+    let(:second-args, { net-log-args(:$dir, :enabled) });
+
+    it 'returns a different log file path for each call', {
+      expect(first-args()[0]).to.not.eq(second-args()[0]);
     }
   }
 }

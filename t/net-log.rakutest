@@ -6,12 +6,12 @@ use BDD::Behave::Playwright::Diagnostics;
 use BDD::Behave::Playwright::Session;
 use WWW::Playwright;
 
-plan 10;
+plan 11;
 
 sub net-log-size(Str $dir --> Int) {
-  my $file = $dir.IO.add("net-log-{$*PID}.json");
+  return 0 unless $dir.IO.d;
 
-  $file.e ?? $file.s !! 0;
+  $dir.IO.dir(test => /^ "net-log-{$*PID}-" \d+ ".json" $/).map(*.s).sum;
 }
 
 sub remove-dir(Str $dir --> Nil) {
@@ -46,9 +46,12 @@ my @args = net-log-args(dir => $args-dir, :enabled);
 is @args.elems, 1, 'net-log-args returns one argument when the net log is enabled';
 ok @args[0].starts-with("--log-net-log={$args-dir.IO.absolute}/"),
    'net-log-args returns a log-net-log switch with a path under the artifacts folder';
-ok @args[0].ends-with("net-log-{$*PID}.json"),
-   'net-log-args names the log file after the process id';
+like @args[0], / "/net-log-{$*PID}-" \d+ ".json" $/,
+   'net-log-args names the log file after the process id and a launch number';
 ok $args-dir.IO.d, 'net-log-args creates the artifacts folder';
+
+isnt net-log-args(dir => $args-dir, :enabled)[0], net-log-args(dir => $args-dir, :enabled)[0],
+     'net-log-args returns a different log file path for each call in one process';
 
 remove-dir($args-dir);
 
