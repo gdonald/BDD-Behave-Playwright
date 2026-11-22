@@ -13,15 +13,17 @@ my $base-url;
 my $failure-base;
 my $dir;
 my $trace-on;
+my $net-log-on;
 
-our sub configure(:$artifacts, Bool :$trace --> Nil) is export {
-  $dir      = artifacts-dir($artifacts);
-  $trace-on = tracing-enabled($trace);
+our sub configure(:$artifacts, Bool :$trace, Bool :$net-log --> Nil) is export {
+  $dir        = artifacts-dir($artifacts);
+  $trace-on   = tracing-enabled($trace);
+  $net-log-on = net-log-enabled($net-log);
 }
 
 our sub start-browser(--> Nil) is export {
   $playwright = WWW::Playwright.start;
-  $browser    = $playwright.launch;
+  $browser    = $playwright.launch(args => net-log-args(:$dir, :enabled($net-log-on)));
 }
 
 our sub open-page(--> Nil) is export {

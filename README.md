@@ -51,7 +51,8 @@ describe 'signing up', {
   `have-count`, `have-css`, `have-title`, `have-current-path`. They negate with
   `.not` and poll Playwright's auto-waiting instead of re-implementing waits.
 - Failure diagnostics: a screenshot (and optional trace) captured to an artifacts
-  directory when an example fails.
+  directory when an example fails, and an optional Chromium net log for the
+  whole browser session.
 
 ## Documentation
 

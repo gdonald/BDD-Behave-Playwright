@@ -1,0 +1,83 @@
+use v6.d;
+use lib 'lib';
+use Test;
+use BDD::Behave::Playwright;
+use BDD::Behave::Playwright::Diagnostics;
+use BDD::Behave::Playwright::Session;
+use WWW::Playwright;
+
+plan 10;
+
+sub net-log-size(Str $dir --> Int) {
+  my $file = $dir.IO.add("net-log-{$*PID}.json");
+
+  $file.e ?? $file.s !! 0;
+}
+
+sub remove-dir(Str $dir --> Nil) {
+  if $dir.IO.d {
+    .unlink for $dir.IO.dir;
+    $dir.IO.rmdir;
+  }
+}
+
+{
+  temp %*ENV;
+  %*ENV<PLAYWRIGHT_NET_LOG>:delete;
+
+  nok net-log-enabled(), 'net-log-enabled is off when PLAYWRIGHT_NET_LOG is unset';
+}
+
+{
+  temp %*ENV;
+  %*ENV<PLAYWRIGHT_NET_LOG> = '1';
+
+  ok net-log-enabled(), 'net-log-enabled is on when PLAYWRIGHT_NET_LOG is set';
+  nok net-log-enabled(False), 'net-log-enabled prefers an explicit argument over PLAYWRIGHT_NET_LOG';
+}
+
+my $args-dir = 'playwright-artifacts-net-log-args-t';
+
+is net-log-args(dir => $args-dir, :!enabled).elems, 0,
+   'net-log-args returns no arguments when the net log is disabled';
+
+my @args = net-log-args(dir => $args-dir, :enabled);
+
+is @args.elems, 1, 'net-log-args returns one argument when the net log is enabled';
+ok @args[0].starts-with("--log-net-log={$args-dir.IO.absolute}/"),
+   'net-log-args returns a log-net-log switch with a path under the artifacts folder';
+ok @args[0].ends-with("net-log-{$*PID}.json"),
+   'net-log-args names the log file after the process id';
+ok $args-dir.IO.d, 'net-log-args creates the artifacts folder';
+
+remove-dir($args-dir);
+
+my $page-dir = 'playwright-artifacts-net-log-page-t';
+
+my $playwright = WWW::Playwright.start;
+my $browser    = $playwright.launch(args => net-log-args(dir => $page-dir, :enabled));
+my $context    = $browser.new-context;
+my $page       = $context.new-page;
+
+$page.goto(fixture-url('specs/fixtures/hello.html'));
+
+$context.close;
+$browser.close;
+$playwright.stop;
+
+ok net-log-size($page-dir) > 0,
+   'a browser launched with the net log arguments leaves a non-empty net log file in the artifacts folder';
+
+remove-dir($page-dir);
+
+my $session-dir = 'playwright-artifacts-net-log-session-t';
+
+configure(artifacts => $session-dir, :net-log);
+start-browser();
+stop-browser();
+
+ok net-log-size($session-dir) > 0,
+   'a session browser with the net log enabled leaves a non-empty net log file in the artifacts folder';
+
+configure();
+remove-dir($session-dir);

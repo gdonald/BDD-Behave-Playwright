@@ -27,7 +27,7 @@ our sub visit(Str:D $path --> Nil) is export {
   goto($url);
 }
 
-our sub playwright-page(Str :$fixture, :$base-url, :%context, :$artifacts, Bool :$trace --> Nil) is export {
+our sub playwright-page(Str :$fixture, :$base-url, :%context, :$artifacts, Bool :$trace, Bool :$net-log --> Nil) is export {
   my $playwright;
   my $browser;
   my $context;
@@ -37,10 +37,11 @@ our sub playwright-page(Str :$fixture, :$base-url, :%context, :$artifacts, Bool 
   my $target    = $fixture.defined ?? fixture-url($fixture) !! Str;
   my $dir       = artifacts-dir($artifacts);
   my $trace-on  = tracing-enabled($trace);
+  my @net-log   = net-log-args(:$dir, :enabled(net-log-enabled($net-log)));
 
   before-all {
     $playwright = WWW::Playwright.start;
-    $browser    = $playwright.launch(:headless(headless-from-env()));
+    $browser    = $playwright.launch(:headless(headless-from-env()), args => @net-log);
   }
 
   before-each {

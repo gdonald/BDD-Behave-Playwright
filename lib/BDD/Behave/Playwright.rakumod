@@ -13,8 +13,8 @@ class BDD::Behave::Playwright {
     $?DISTRIBUTION.meta;
   }
 
-  method install($config, Str :$type = 'system', :$artifacts, Bool :$trace --> Nil) {
-    BDD::Behave::Playwright::Session::configure(:$artifacts, :$trace);
+  method install($config, Str :$type = 'system', :$artifacts, Bool :$trace, Bool :$net-log --> Nil) {
+    BDD::Behave::Playwright::Session::configure(:$artifacts, :$trace, :$net-log);
 
     $config.before-all({ BDD::Behave::Playwright::Session::start-browser }, :$type);
     $config.before-each({ BDD::Behave::Playwright::Session::open-page }, :$type);

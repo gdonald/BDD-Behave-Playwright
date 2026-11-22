@@ -18,6 +18,18 @@ our sub tracing-enabled($explicit?) is export {
   ($explicit // ?%*ENV<PLAYWRIGHT_TRACE>).Bool;
 }
 
+our sub net-log-enabled($explicit?) is export {
+  ($explicit // ?%*ENV<PLAYWRIGHT_NET_LOG>).Bool;
+}
+
+our sub net-log-args(Str :$dir!, Bool :$enabled = net-log-enabled() --> List) is export {
+  return () unless $enabled;
+
+  $dir.IO.mkdir;
+
+  ("--log-net-log={$dir.IO.add("net-log-{$*PID}.json").absolute}",);
+}
+
 our sub failure-count(--> Int) is export {
   Failures.list.elems;
 }
